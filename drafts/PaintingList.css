@@ -1,0 +1,7 @@
+.PaintingList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: 1170px;
+  display: flex;
+}

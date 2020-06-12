@@ -4,6 +4,15 @@ import PaintingList from "./components/PaintingList";
 import Panel from "./components/Panel";
 import paintings from "./paintings.json";
 
+const colorPickerOptions = [
+  { label: "red", color: "#F44336" },
+  { label: "green", color: "#4CAF50" },
+  { label: "blue", color: "#2196F3" },
+  { label: "grey", color: "#607D8B" },
+  { label: "pink", color: "#E91E63" },
+  { label: "indigo", color: "#3F51B5" },
+];
+
 const App = () => {
   return (
     <div>
@@ -16,21 +25,13 @@ const App = () => {
           reprehenderit nulla magnam reiciendis, aliquid minus tenetur ipsam
           fuga. Quas vel, sunt voluptatum debitis incidunt numquam?
         </p>
-
-        <a href="">Читать...</a>
       </Panel>
 
-      <Panel>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-          explicabo aperiam architecto perspiciatis quae amet. Porro magni
-          laudantium aspernatur debitis deserunt ipsam. Nostrum id accusamus
-          praesentium eum incidunt tenetur cum!
-        </p>
+      <Panel text="Популярные работы">
+        <PaintingList paintings={paintings} />
       </Panel>
 
       <Logo text="Главный компонент-контейнер приложения" />
-      <PaintingList paintings={paintings} />
     </div>
   );
 };
