@@ -1,8 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Panel.module.css';
+
+console.log(styles);
 
 const Panel = ({ title, children }) => (
-  <div>
+  <div className={styles.container}>
     {title && <h2>{title}</h2>}
 
     {children}
@@ -10,7 +13,7 @@ const Panel = ({ title, children }) => (
 );
 
 Panel.defaultProps = {
-  title: "",
+  title: '',
   children: [],
 };
 

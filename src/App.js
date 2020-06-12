@@ -1,7 +1,9 @@
 import React from 'react';
-import Logo from './components/Logo';
-import PaintingList from './components/PaintingList';
-import Panel from './components/Panel';
+import PaintingList from './components/PaintingList/PaintingList';
+import Panel from './components/Panel/Panel';
+import ColorPicker from './components/ColorPicker/ColorPicker';
+import Notification from './components/Notification/Notification';
+import Layout from './components/Layout/Layout';
 import paintings from './paintings.json';
 
 const colorPickerOptions = [
@@ -15,7 +17,13 @@ const colorPickerOptions = [
 
 const App = () => {
   return (
-    <div>
+    <Layout>
+      <ColorPicker options={colorPickerOptions} />
+
+      <Notification text="Всё хорошо" type="success" />
+
+      <Notification text="Всё плохо" type="error" />
+
       <Panel title="Последние новости">
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam,
@@ -30,9 +38,7 @@ const App = () => {
       <Panel text="Популярные работы">
         <PaintingList paintings={paintings} />
       </Panel>
-
-      <Logo text="Главный компонент-контейнер приложения" />
-    </div>
+    </Layout>
   );
 };
 
