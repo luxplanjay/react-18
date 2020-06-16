@@ -1,45 +1,56 @@
-import React from 'react';
-import PaintingList from './components/PaintingList/PaintingList';
-import Panel from './components/Panel/Panel';
-import ColorPicker from './components/ColorPicker/ColorPicker';
-import Notification from './components/Notification/Notification';
-import Layout from './components/Layout/Layout';
-import paintings from './paintings.json';
+import React, { Component } from 'react';
+// import Counter from './components/Counter';
+// import Dropdown from './components/Dropdown';
+// import ColorPicker from './components/ColorPicker';
+import TodoList from './components/TodoList';
+import initialTodos from './todos.json';
 
-const colorPickerOptions = [
-  { label: 'red', color: '#F44336' },
-  { label: 'green', color: '#4CAF50' },
-  { label: 'blue', color: '#2196F3' },
-  { label: 'grey', color: '#607D8B' },
-  { label: 'pink', color: '#E91E63' },
-  { label: 'indigo', color: '#3F51B5' },
-];
+// const colorPickerOptions = [
+//   { label: 'red', color: '#F44336' },
+//   { label: 'green', color: '#4CAF50' },
+//   { label: 'blue', color: '#2196F3' },
+//   { label: 'grey', color: '#607D8B' },
+//   { label: 'pink', color: '#E91E63' },
+//   { label: 'indigo', color: '#3F51B5' },
+// ];
 
-const App = () => {
-  return (
-    <Layout>
-      <ColorPicker options={colorPickerOptions} />
+class App extends Component {
+  state = {
+    todos: initialTodos,
+  };
 
-      <Notification text="Всё хорошо" type="success" />
+  deleteTodo = todoId => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== todoId),
+    }));
+  };
 
-      <Notification text="Всё плохо" type="error" />
+  render() {
+    const { todos } = this.state;
 
-      <Panel title="Последние новости">
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam,
-          obcaecati dolorum assumenda vitae aspernatur, aliquid numquam
-          explicabo, facere tenetur unde dolorem quo! Sit iusto natus at,
-          aliquam, repellendus repellat ipsa eligendi dolorem tempore atque
-          reprehenderit nulla magnam reiciendis, aliquid minus tenetur ipsam
-          fuga. Quas vel, sunt voluptatum debitis incidunt numquam?
-        </p>
-      </Panel>
+    const totalTodoCount = todos.length;
+    const completedTodoCount = todos.reduce(
+      (total, todo) => (todo.completed ? total + 1 : total),
+      0,
+    );
 
-      <Panel text="Популярные работы">
-        <PaintingList paintings={paintings} />
-      </Panel>
-    </Layout>
-  );
-};
+    return (
+      <>
+        <h1>Состояние компонента</h1>
+
+        {/* <Counter initialValue={10} /> */}
+        {/* <Dropdown /> */}
+        {/* <ColorPicker options={colorPickerOptions} /> */}
+
+        <div>
+          <p>Общее кол-во: {totalTodoCount}</p>
+          <p>Кол-во выполненных: {completedTodoCount}</p>
+        </div>
+
+        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+      </>
+    );
+  }
+}
 
 export default App;
