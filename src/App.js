@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
-// import ColorPicker from './components/ColorPicker';
-// import Counter from './components/Counter';
 import Container from './components/Container';
 import TodoList from './components/TodoList';
 import TodoEditor from './components/TodoEditor';
-import Filter from './components/Filter';
-// import Form from './components/Form';
+import Filter from './components/TodoFilter';
 import initialTodos from './todos.json';
+
+import IconButton from './components/IconButton';
+import { ReactComponent as AddIcon } from './icons/add.svg';
 
 class App extends Component {
   state = {
@@ -28,25 +28,12 @@ class App extends Component {
   };
 
   deleteTodo = todoId => {
-    this.setState(prevState => ({
-      todos: prevState.todos.filter(todo => todo.id !== todoId),
+    this.setState(({ todos }) => ({
+      todos: todos.filter(({ id }) => id !== todoId),
     }));
   };
 
   toggleCompleted = todoId => {
-    // this.setState(prevState => ({
-    //   todos: prevState.todos.map(todo => {
-    //     if (todo.id === todoId) {
-    //       return {
-    //         ...todo,
-    //         completed: !todo.completed,
-    //       };
-    //     }
-
-    //     return todo;
-    //   }),
-    // }));
-
     this.setState(({ todos }) => ({
       todos: todos.map(todo =>
         todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
@@ -62,8 +49,8 @@ class App extends Component {
     const { filter, todos } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
-    return todos.filter(todo =>
-      todo.text.toLowerCase().includes(normalizedFilter),
+    return todos.filter(({ text }) =>
+      text.toLowerCase().includes(normalizedFilter),
     );
   };
 
@@ -84,8 +71,11 @@ class App extends Component {
 
     return (
       <Container>
-        {/* TODO: вынести в отдельный компонент */}
+        <IconButton aria-label="Добавить заметку">
+          <AddIcon width="48" height="48" fill="#fff" />
+        </IconButton>
 
+        {/* TODO: вынести в отдельный компонент */}
         <div>
           <p>Всего заметок: {totalTodoCount}</p>
           <p>Выполнено: {completedTodoCount}</p>
