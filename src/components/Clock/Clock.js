@@ -17,6 +17,10 @@ export default class Clock extends Component {
     );
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
   render() {
     return <div className="Clock__face">{this.state.time}</div>;
   }
