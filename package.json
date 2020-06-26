@@ -6,11 +6,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "faker": "^4.1.0",
+    "json-server": "^0.16.1",
     "modern-normalize": "^0.6.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "shortid": "^2.2.15"
   },
@@ -18,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api-server": "json-server --delay 300 --watch db.json"
   },
   "eslintConfig": {
     "extends": "react-app"
