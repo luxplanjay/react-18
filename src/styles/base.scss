@@ -1,11 +1,9 @@
-@import 'styles/shared';
-
 body {
-  margin: 0;
-  background-color: $white;
-  color: $black;
+  background-color: #fff;
+  color: #212121;
   line-height: 1.5;
-  font-family: $primary-font-stack;
+  font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, 'Open Sans', Ubuntu, Cantarell, sans-serif;
 }
 
 img {
@@ -14,15 +12,11 @@ img {
   height: auto;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
+.NavLink {
+  font-size: 20px;
+  color: currentColor;
 }
 
-p {
-  margin-top: 0;
+.NavLink--active {
+  color: palevioletred;
 }

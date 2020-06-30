@@ -1,27 +1,50 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
-import TodosView from './views/TodosView';
-import ArticlesView from './views/ArticlesView';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import HomeView from './views/HomeView';
+import AuthorsView from './views/AuthorsView';
+import BooksView from './views/BooksView';
+import NotFoundView from './views/NotFoundView';
+import BookDetailsView from './views/BookDetailsView';
 
 const App = () => (
   <>
     <ul>
       <li>
-        <Link to="/todos">Заметки</Link>
+        <NavLink
+          exact
+          to="/"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <Link to="/articles">Статьи</Link>
+        <NavLink
+          to="/authors"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Authors
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/books"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Books
+        </NavLink>
       </li>
     </ul>
 
     <Switch>
-      <Route path="/todos">
-        <TodosView />
-      </Route>
-
-      <Route path="/articles">
-        <ArticlesView />
-      </Route>
+      <Route exact path="/" component={HomeView} />
+      <Route path="/authors" component={AuthorsView} />
+      <Route exact path="/books" component={BooksView} />
+      <Route path="/books/:bookId" component={BookDetailsView} />
+      <Route component={NotFoundView} />
     </Switch>
   </>
 );
