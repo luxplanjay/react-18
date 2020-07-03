@@ -1,51 +1,40 @@
-import React from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
-import HomeView from './views/HomeView';
-import AuthorsView from './views/AuthorsView';
-import BooksView from './views/BooksView';
+import React, { Suspense, lazy } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import NotFoundView from './views/NotFoundView';
-import BookDetailsView from './views/BookDetailsView';
+import AppBar from './components/AppBar';
+import routes from './routes';
+
+const HomeView = lazy(() =>
+  import('./views/HomeView.js' /* webpackChunkName: "home-view" */),
+);
+
+const AuthorsView = lazy(() =>
+  import('./views/AuthorsView.js' /* webpackChunkName: "authors-view" */),
+);
+
+const BooksView = lazy(() =>
+  import('./views/BooksView.js' /* webpackChunkName: "books-view" */),
+);
+
+const BookDetailsView = lazy(() =>
+  import(
+    './views/BookDetailsView.js' /* webpackChunkName: "book-details-view" */
+  ),
+);
 
 const App = () => (
   <>
-    <ul>
-      <li>
-        <NavLink
-          exact
-          to="/"
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/authors"
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
-          Authors
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/books"
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
-          Books
-        </NavLink>
-      </li>
-    </ul>
+    <AppBar />
 
-    <Switch>
-      <Route exact path="/" component={HomeView} />
-      <Route path="/authors" component={AuthorsView} />
-      <Route exact path="/books" component={BooksView} />
-      <Route path="/books/:bookId" component={BookDetailsView} />
-      <Route component={NotFoundView} />
-    </Switch>
+    <Suspense fallback={<h1>Загружаем...</h1>}>
+      <Switch>
+        <Route exact path={routes.home} component={HomeView} />
+        <Route path={routes.authors} component={AuthorsView} />
+        <Route exact path={routes.books} component={BooksView} />
+        <Route path={routes.bookDetails} component={BookDetailsView} />
+        <Route component={NotFoundView} />
+      </Switch>
+    </Suspense>
   </>
 );
 

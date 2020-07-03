@@ -12,11 +12,37 @@ img {
   height: auto;
 }
 
-.NavLink {
-  font-size: 20px;
-  color: currentColor;
+.HomeView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url('../images/home-bg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
-.NavLink--active {
-  color: palevioletred;
+.HomeView-title {
+  color: #fff;
+  font-size: 64px;
+
+  &::selection {
+    background-color: #fff;
+    color: #212121;
+  }
+}
+
+.AppBar {
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-bottom: 1px solid #ccc;
 }

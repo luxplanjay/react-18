@@ -1,0 +1,10 @@
+.BookList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 24px;
+}

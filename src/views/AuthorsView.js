@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
-import AuthorBooks from '../components/AuthorBooks';
+import BookList from '../components/BookList';
 
 class AuthorsView extends Component {
   state = {
@@ -18,15 +18,14 @@ class AuthorsView extends Component {
 
   render() {
     const { match } = this.props;
+    const { authors } = this.state;
 
     return (
-      <>
-        <h1>Это страница авторов</h1>
-
+      <div className="container-fluid">
         <ul>
-          {this.state.authors.map(author => (
-            <li key={author.id}>
-              <NavLink to={`${match.url}/${author.id}`}>{author.name}</NavLink>
+          {authors.map(({ id, name }) => (
+            <li key={id}>
+              <NavLink to={`${match.url}/${id}`}>{name}</NavLink>
             </li>
           ))}
         </ul>
@@ -34,13 +33,20 @@ class AuthorsView extends Component {
         <Route
           path={`${match.path}/:authorId`}
           render={props => {
-            const bookId = Number(props.match.params.authorId);
-            const author = this.state.authors.find(({ id }) => id === bookId);
+            const authorId = Number(props.match.params.authorId);
+            const author = authors.find(({ id }) => id === authorId);
 
-            return author && <AuthorBooks {...props} books={author.books} />;
+            return (
+              author && (
+                <>
+                  <h2>Книги автора: {author.name}</h2>
+                  <BookList {...props} books={author.books} />
+                </>
+              )
+            );
           }}
         />
-      </>
+      </div>
     );
   }
 }

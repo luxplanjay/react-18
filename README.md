@@ -1,11 +1,8 @@
 # react-18
 
-- Концепция SPA (Single Page Application)
-- Структура url-строки и HTML5 History API. Библиотека history
-- Компоненты BrowserRouter и Route
-- Обработка 404 c Redirect
-- Компонент Switch
-- Компоненты навигации: Link и NavLink
-- Вложенные рауты и навигация: match.url и match.path
-- Пропсы match, location, history
-- Динамические URL-параметры
+- Причёсываем код
+- Делаем файл маршрутов `routes.js` и рефакторим маршрутизацию
+- Пишем `<AppBar>` и `<Navigation>`
+- Переиспользуем компонент списка `<BookList>` и `<Book>`
+- Кнопка «Назад» на странице одной книги, используем пропсы history и location
+- Разделение кода c `<Suspence>` и `React.lazy()`. (code splitting)
