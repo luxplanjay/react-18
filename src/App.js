@@ -1,26 +1,26 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import TodosView from './views/TodosView';
-import ArticlesView from './views/ArticlesView';
+import CounterView from './views/CounterView';
 
 const App = () => (
   <>
     <ul>
       <li>
-        <Link to="/todos">Заметки</Link>
+        <Link to="/counter">Счётчик</Link>
       </li>
       <li>
-        <Link to="/articles">Статьи</Link>
+        <Link to="/todos">Заметки</Link>
       </li>
     </ul>
 
     <Switch>
-      <Route path="/todos">
-        <TodosView />
+      <Route path="/counter">
+        <CounterView />
       </Route>
 
-      <Route path="/articles">
-        <ArticlesView />
+      <Route path="/todos">
+        <TodosView />
       </Route>
     </Switch>
   </>

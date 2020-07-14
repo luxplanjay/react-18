@@ -7,7 +7,6 @@ import Stats from '../components/Stats';
 import Modal from '../components/Modal';
 import IconButton from '../components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
-import todosApi from '../services/todos-api';
 
 const barStyles = {
   display: 'flex',
@@ -17,72 +16,33 @@ const barStyles = {
 
 class TodosView extends Component {
   state = {
-    todos: [],
-    filter: '',
     showModal: false,
   };
 
-  componentDidMount() {
-    todosApi
-      .fetchTodos()
-      .then(todos => this.setState({ todos }))
-      .catch(error => console.log(error));
-  }
+  // componentDidMount() {
+  //   const todos = localStorage.getItem('todos');
+  //   const parsedTodos = JSON.parse(todos);
 
-  componentDidUpdate(prevProps, prevState) {
-    const nextTodos = this.state.todos;
-    const prevTodos = prevState.todos;
+  //   if (parsedTodos) {
+  //     this.setState({ todos: parsedTodos });
+  //   }
+  // }
 
-    if (nextTodos !== prevTodos) {
-      localStorage.setItem('todos', JSON.stringify(nextTodos));
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const nextTodos = this.state.todos;
+  //   const prevTodos = prevState.todos;
 
-  addTodo = text => {
-    const todoData = {
-      text,
-      completed: false,
-    };
-
-    todosApi.addTodo(todoData).then(todo => {
-      this.setState(({ todos }) => ({ todos: [...todos, todo] }));
-      this.toggleModal();
-    });
-  };
-
-  deleteTodo = todoId => {
-    todosApi.deleteTodo(todoId).then(() => {
-      this.setState(({ todos }) => ({
-        todos: todos.filter(({ id }) => id !== todoId),
-      }));
-    });
-  };
+  //   if (nextTodos !== prevTodos) {
+  //     localStorage.setItem('todos', JSON.stringify(nextTodos));
+  //   }
+  // }
 
   toggleCompleted = todoId => {
-    const todo = this.state.todos.find(({ id }) => id === todoId);
-    const { completed } = todo;
-    const update = { completed: !completed };
-
-    todosApi.updateTodo(todoId, update).then(updatedTodo => {
-      this.setState(({ todos }) => ({
-        todos: todos.map(todo =>
-          todo.id === updatedTodo.id ? updatedTodo : todo,
-        ),
-      }));
-    });
-  };
-
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
-
-  getVisibleTodos = () => {
-    const { filter, todos } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-
-    return todos.filter(({ text }) =>
-      text.toLowerCase().includes(normalizedFilter),
-    );
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo =>
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    }));
   };
 
   calculateCompletedTodos = () => {
@@ -101,30 +61,25 @@ class TodosView extends Component {
   };
 
   render() {
-    const { todos, filter, showModal } = this.state;
-    const totalTodoCount = todos.length;
-    const completedTodoCount = this.calculateCompletedTodos();
-    const visibleTodos = this.getVisibleTodos();
+    const { showModal } = this.state;
+    // const totalTodoCount = todos.length;
+    // const completedTodoCount = this.calculateCompletedTodos();
 
     return (
       <Container>
         <div style={barStyles}>
-          <Filter value={filter} onChange={this.changeFilter} />
-          <Stats total={totalTodoCount} completed={completedTodoCount} />
+          <Filter />
+          {/* <Stats total={totalTodoCount} completed={completedTodoCount} /> */}
           <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
             <AddIcon width="40" height="40" fill="#fff" />
           </IconButton>
         </div>
 
-        <TodoList
-          todos={visibleTodos}
-          onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
-        />
+        <TodoList />
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <TodoEditor onSubmit={this.addTodo} />
+            <TodoEditor />
           </Modal>
         )}
       </Container>
