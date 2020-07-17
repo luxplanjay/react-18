@@ -1,13 +1,11 @@
 # react-18
 
-- Основные концепции: store, state, actions, action creators, reducers
-- Feature based структура файлов и папок
-  - Создаём и настраиваем хранилище (store)
-  - Готовим экшены (действия, actions) и фабрики
-  - Пишем редюсер
-- Связываем компоненты и хранилище.
-  - Пакет react-redux.
-  - Компонент Provider
-  - Функция connect(mapStateToProps, mapDispatchToProps)
-- Redux DevTools
-- Композиция редюсеров с combineReducers
+- Разбираем [Redux Toolkit](https://redux-toolkit.js.org/) и рефакторим код
+  предыдущего занятия
+- configureStore()
+  - getDefaultMiddleware
+  - Добавляем [логгер](https://github.com/LogRocket/redux-logger)
+- createReducer()
+- createAction()
+  - Зачем нужны Prepare Callbacks
+- [redux-persist](https://github.com/rt2zz/redux-persist)

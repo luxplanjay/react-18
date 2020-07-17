@@ -19,41 +19,6 @@ class TodosView extends Component {
     showModal: false,
   };
 
-  // componentDidMount() {
-  //   const todos = localStorage.getItem('todos');
-  //   const parsedTodos = JSON.parse(todos);
-
-  //   if (parsedTodos) {
-  //     this.setState({ todos: parsedTodos });
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   const nextTodos = this.state.todos;
-  //   const prevTodos = prevState.todos;
-
-  //   if (nextTodos !== prevTodos) {
-  //     localStorage.setItem('todos', JSON.stringify(nextTodos));
-  //   }
-  // }
-
-  toggleCompleted = todoId => {
-    this.setState(({ todos }) => ({
-      todos: todos.map(todo =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    }));
-  };
-
-  calculateCompletedTodos = () => {
-    const { todos } = this.state;
-
-    return todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0,
-    );
-  };
-
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -62,14 +27,12 @@ class TodosView extends Component {
 
   render() {
     const { showModal } = this.state;
-    // const totalTodoCount = todos.length;
-    // const completedTodoCount = this.calculateCompletedTodos();
 
     return (
       <Container>
         <div style={barStyles}>
           <Filter />
-          {/* <Stats total={totalTodoCount} completed={completedTodoCount} /> */}
+          <Stats />
           <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
             <AddIcon width="40" height="40" fill="#fff" />
           </IconButton>
@@ -79,7 +42,7 @@ class TodosView extends Component {
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <TodoEditor />
+            <TodoEditor onSave={this.toggleModal} />
           </Modal>
         )}
       </Container>
