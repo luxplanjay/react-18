@@ -1,11 +1,8 @@
 # react-18
 
-- Разбираем [Redux Toolkit](https://redux-toolkit.js.org/) и рефакторим код
-  предыдущего занятия
-- configureStore()
-  - getDefaultMiddleware
-  - Добавляем [логгер](https://github.com/LogRocket/redux-logger)
-- createReducer()
-- createAction()
-  - Зачем нужны Prepare Callbacks
-- [redux-persist](https://github.com/rt2zz/redux-persist)
+- Удаляем сохранение todo в localstorage
+- Прослойка и стек прослоек (middleware)
+- Добавление прослоек к store
+- Прослойка redux-thunk
+- Асинхронные действия (операции)
+- HTTP-запросы

@@ -1,0 +1,34 @@
+{
+  "todos": [
+    {
+      "id": "id-3",
+      "text": "Привыкнуть к Redux",
+      "completed": true
+    },
+    {
+      "id": "id-4",
+      "text": "Попробовать React Hooks",
+      "completed": false
+    },
+    {
+      "text": "qweqwe",
+      "completed": false,
+      "id": "1CM1klW"
+    },
+    {
+      "text": "qqweqeq",
+      "completed": true,
+      "id": "Z1P-R-j"
+    },
+    {
+      "text": "wegqrhewtrjeytrkutyy",
+      "completed": false,
+      "id": "AFzDG-8"
+    },
+    {
+      "text": "qweqwe",
+      "completed": true,
+      "id": "rgkrUOs"
+    }
+  ]
+}
