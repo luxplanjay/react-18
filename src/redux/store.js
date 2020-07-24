@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import {
   FLUSH,
   REHYDRATE,
@@ -8,7 +8,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import todosReducer from './todos/todos-reducer';
+import { todosReducer } from './todos';
+import counterReducer from './counter';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -16,12 +17,13 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  logger,
+  // logger,
 ];
 
 const store = configureStore({
   reducer: {
     todos: todosReducer,
+    counter: counterReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

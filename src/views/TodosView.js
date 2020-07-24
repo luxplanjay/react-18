@@ -8,7 +8,9 @@ import Stats from '../components/Stats';
 import Modal from '../components/Modal';
 import IconButton from '../components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
-import todosOperations from '../redux/todos/todos-operations';
+import { todosOperations, todosSelectors } from '../redux/todos';
+
+import Btn from '../components/CounterButton';
 
 const barStyles = {
   display: 'flex',
@@ -44,6 +46,8 @@ class TodosView extends Component {
           </IconButton>
 
           {this.props.isLoadingTodos && <h1>Загружаем...</h1>}
+
+          <Btn />
         </div>
 
         <TodoList />
@@ -59,7 +63,7 @@ class TodosView extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoadingTodos: state.todos.loading,
+  isLoadingTodos: todosSelectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
