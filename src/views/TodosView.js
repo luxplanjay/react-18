@@ -10,8 +10,6 @@ import IconButton from '../components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
 import { todosOperations, todosSelectors } from '../redux/todos';
 
-import Btn from '../components/CounterButton';
-
 const barStyles = {
   display: 'flex',
   alignItems: 'flex-end',
@@ -46,8 +44,6 @@ class TodosView extends Component {
           </IconButton>
 
           {this.props.isLoadingTodos && <h1>Загружаем...</h1>}
-
-          <Btn />
         </div>
 
         <TodoList />

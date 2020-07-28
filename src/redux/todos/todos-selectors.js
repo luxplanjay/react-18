@@ -23,8 +23,8 @@ const getVisibleTodos = createSelector(
     console.log('Составляю новый массив видимых туду');
     const normalizedFilter = filter.toLowerCase();
 
-    return todos.filter(({ text }) =>
-      text.toLowerCase().includes(normalizedFilter),
+    return todos.filter(({ description }) =>
+      description.toLowerCase().includes(normalizedFilter),
     );
   },
 );
