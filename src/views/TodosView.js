@@ -62,8 +62,8 @@ const mapStateToProps = state => ({
   isLoadingTodos: todosSelectors.getLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchTodos: () => dispatch(todosOperations.fetchTodos()),
-});
+const mapDispatchToProps = {
+  fetchTodos: todosOperations.fetchTodos,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosView);
