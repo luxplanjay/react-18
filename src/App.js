@@ -1,141 +1,58 @@
-import React, { Component } from 'react';
-import shortid from 'shortid';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Container from './components/Container';
-import TodoList from './components/TodoList';
-import TodoEditor from './components/TodoEditor';
-import Filter from './components/TodoFilter';
-import Modal from './components/Modal';
-import IconButton from './components/IconButton';
-import { ReactComponent as AddIcon } from './icons/add.svg';
-// import Tabs from './components/Tabs';
-// import tabs from './tabs.json';
-// import Clock from './components/Clock';
-// import initialTodos from './todos.json';
+import AppBar from './components/AppBar';
+import Counter from './components/Counter';
+import SignupForm from './components/SignupForm';
+import Clock from './components/Clock';
+import News from './components/News';
+import ColorPicker from './components/ColorPicker';
+import UserMenu from './components/UserMenu';
+import Todos from './components/Todos';
 
-class App extends Component {
-  state = {
-    todos: [],
-    filter: '',
-    showModal: false,
-  };
+const colorPickerOptions = [
+  { label: 'red', color: '#F44336' },
+  { label: 'green', color: '#4CAF50' },
+  { label: 'blue', color: '#2196F3' },
+  { label: 'grey', color: '#607D8B' },
+  { label: 'pink', color: '#E91E63' },
+  { label: 'indigo', color: '#3F51B5' },
+];
 
-  componentDidMount() {
-    // console.log('App componentDidMount');
+export default function App() {
+  return (
+    <Container>
+      <AppBar />
 
-    const todos = localStorage.getItem('todos');
-    const parsedTodos = JSON.parse(todos);
+      <Switch>
+        <Route path="/counter">
+          <Counter />
+        </Route>
 
-    if (parsedTodos) {
-      this.setState({ todos: parsedTodos });
-    }
-  }
+        <Route path="/signup">
+          <SignupForm />
+        </Route>
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log('App componentDidUpdate');
+        <Route path="/colorpicker">
+          <ColorPicker options={colorPickerOptions} />
+        </Route>
 
-    const nextTodos = this.state.todos;
-    const prevTodos = prevState.todos;
+        <Route path="/clock">
+          <Clock />
+        </Route>
 
-    if (nextTodos !== prevTodos) {
-      console.log('Обновилось поле todos, записываю todos в хранилище');
-      localStorage.setItem('todos', JSON.stringify(nextTodos));
-    }
+        <Route path="/news">
+          <News />
+        </Route>
 
-    if (nextTodos.length > prevTodos.length && prevTodos.length !== 0) {
-      this.toggleModal();
-    }
-  }
+        <Route path="/context">
+          <UserMenu />
+        </Route>
 
-  addTodo = text => {
-    const todo = {
-      id: shortid.generate(),
-      text,
-      completed: false,
-    };
-
-    this.setState(({ todos }) => ({
-      todos: [todo, ...todos],
-    }));
-
-    // this.toggleModal();
-  };
-
-  deleteTodo = todoId => {
-    this.setState(({ todos }) => ({
-      todos: todos.filter(({ id }) => id !== todoId),
-    }));
-  };
-
-  toggleCompleted = todoId => {
-    this.setState(({ todos }) => ({
-      todos: todos.map(todo =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    }));
-  };
-
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
-
-  getVisibleTodos = () => {
-    const { filter, todos } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-
-    return todos.filter(({ text }) =>
-      text.toLowerCase().includes(normalizedFilter),
-    );
-  };
-
-  calculateCompletedTodos = () => {
-    const { todos } = this.state;
-
-    return todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0,
-    );
-  };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
-
-  render() {
-    const { todos, filter, showModal } = this.state;
-    const totalTodoCount = todos.length;
-    const completedTodoCount = this.calculateCompletedTodos();
-    const visibleTodos = this.getVisibleTodos();
-
-    return (
-      <Container>
-        <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
-          <AddIcon width="40" height="40" fill="#fff" />
-        </IconButton>
-
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <TodoEditor onSubmit={this.addTodo} />
-          </Modal>
-        )}
-
-        {/* TODO: вынести в отдельный компонент */}
-        <div>
-          <p>Всего заметок: {totalTodoCount}</p>
-          <p>Выполнено: {completedTodoCount}</p>
-        </div>
-
-        <Filter value={filter} onChange={this.changeFilter} />
-
-        <TodoList
-          todos={visibleTodos}
-          onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
-        />
-      </Container>
-    );
-  }
+        <Route path="/todos">
+          <Todos />
+        </Route>
+      </Switch>
+    </Container>
+  );
 }
-
-export default App;

@@ -31,7 +31,9 @@ class ColorPicker extends PureComponent {
             <button
               key={label}
               className={this.makeOptionClassName(index)}
-              style={{ backgroundColor: color }}
+              style={{
+                backgroundColor: color,
+              }}
               onClick={() => this.setActiveIdx(index)}
             ></button>
           ))}

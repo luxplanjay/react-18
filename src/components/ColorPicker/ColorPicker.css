@@ -1,5 +1,5 @@
 .ColorPicker {
-  width: 400px;
+  display: inline-block;
   padding: 10px;
   border: 1px solid black;
 }
@@ -10,8 +10,8 @@
 
 .ColorPicker__option {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
   margin: 4px;
   border: none;
   outline: none;
