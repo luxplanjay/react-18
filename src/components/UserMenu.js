@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ctx from '../context/authContext';
 
 const styles = {
   container: {
@@ -12,16 +13,22 @@ const styles = {
 };
 
 export default function UserMenu() {
+  const { user, logIn, logOut } = useContext(ctx);
+
   return (
     <div style={styles.container}>
-      <button type="button" onClick={() => console.log('Входим')}>
-        Войти
-      </button>
-
-      <p style={styles.tag}>Юзер</p>
-      <button type="button" onClick={() => console.log('Выходим')}>
-        Выйти
-      </button>
+      {user ? (
+        <>
+          <p style={styles.tag}>{user}</p>
+          <button type="button" onClick={logOut}>
+            Выйти
+          </button>
+        </>
+      ) : (
+        <button type="button" onClick={logIn}>
+          Войти
+        </button>
+      )}
     </div>
   );
 }

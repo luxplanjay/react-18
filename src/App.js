@@ -8,7 +8,6 @@ import Clock from './components/Clock';
 import News from './components/News';
 import ColorPicker from './components/ColorPicker';
 import UserMenu from './components/UserMenu';
-import Todos from './components/Todos';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -47,10 +46,6 @@ export default function App() {
 
         <Route path="/context">
           <UserMenu />
-        </Route>
-
-        <Route path="/todos">
-          <Todos />
         </Route>
       </Switch>
     </Container>

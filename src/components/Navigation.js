@@ -6,8 +6,9 @@ const styles = {
     display: 'inline-block',
     textDecoration: 'none',
     padding: 12,
-    fontWeight: 700,
+    fontWeight: 500,
     color: '#2A363B',
+    fontSize: 18,
   },
   activeLink: {
     color: '#F21D41',
@@ -38,10 +39,6 @@ const Navigation = () => (
 
     <NavLink to="/news" style={styles.link} activeStyle={styles.activeLink}>
       Новости
-    </NavLink>
-
-    <NavLink to="/todos" style={styles.link} activeStyle={styles.activeLink}>
-      Заметки
     </NavLink>
 
     <NavLink to="/context" style={styles.link} activeStyle={styles.activeLink}>

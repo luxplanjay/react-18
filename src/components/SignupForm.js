@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 const styles = {
   form: {
@@ -7,45 +7,100 @@ const styles = {
   label: {
     display: 'flex',
     flexDirection: 'column',
+    marginBottom: 15,
   },
 };
 
-export default class SignupForm extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
+export default function SignupForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  handleChange = evt => {
+  const handleChange = evt => {
     const { name, value } = evt.target;
-    this.setState({ [name]: value });
+
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        console.warn(`Тип поля name - ${name} не обрабатывается`);
+    }
   };
 
-  render() {
-    return (
-      <form style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          <span>Email</span>
-          <input
-            type="email"
-            name="email"
-            onChange={this.handleChange}
-            value={this.state.email}
-          />
-        </label>
+  const handleSubmit = evt => {
+    evt.preventDefault();
 
-        <label style={styles.label}>
-          <span>Password</span>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-          />
-        </label>
+    console.log(email, password);
+  };
 
-        <button type="submit">Sign up</button>
-      </form>
-    );
-  }
+  return (
+    <form style={styles.form} autoComplete="off" onSubmit={handleSubmit}>
+      <label style={styles.label}>
+        <span>Почта</span>
+        <input
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={email}
+        />
+      </label>
+
+      <label style={styles.label}>
+        <span>Пароль</span>
+        <input
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={password}
+        />
+      </label>
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  );
 }
+
+// export default class SignupForm extends Component {
+//   state = {
+//     email: '',
+//     password: '',
+//   };
+
+// handleChange = evt => {
+//   const { name, value } = evt.target;
+//   this.setState({ [name]: value });
+// };
+
+//   render() {
+//     return (
+//       <form style={styles.form} autoComplete="off">
+//         <label style={styles.label}>
+//           <span>Почта</span>
+//           <input
+//             type="email"
+//             name="email"
+//             onChange={this.handleChange}
+//             value={this.state.email}
+//           />
+//         </label>
+
+//         <label style={styles.label}>
+//           <span>Пароль</span>
+//           <input
+//             type="password"
+//             name="password"
+//             onChange={this.handleChange}
+//             value={this.state.password}
+//           />
+//         </label>
+
+//         <button type="submit">Зарегистрироваться</button>
+//       </form>
+//     );
+//   }
+// }
