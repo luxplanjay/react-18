@@ -24,15 +24,17 @@ export default function News() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // TODO: пофиксить цикличный useEffect, пробуйте :)
   useEffect(() => {
+    if (!query) {
+      return;
+    }
+
     const fetchArticles = () => {
       setIsLoading(true);
 
       APIfetchArticles({ searchQuery: query, currentPage })
         .then(responseArticles => {
           setArticles(prevArticles => [...prevArticles, ...responseArticles]);
-          setCurrentPage(prevCurrentPage => prevCurrentPage + 1);
         })
         .catch(error => setError(error.message))
         .finally(() => setIsLoading(false));
@@ -40,6 +42,10 @@ export default function News() {
 
     fetchArticles();
   }, [currentPage, query]);
+
+  const updatePage = () => {
+    setCurrentPage(prevPage => prevPage + 1);
+  };
 
   const onChangeQuery = query => {
     setQuery(query);
@@ -67,7 +73,7 @@ export default function News() {
       </ul>
 
       {shouldRenderLoadMoreButton && (
-        <button type="button" onClick={() => null}>
+        <button type="button" onClick={updatePage}>
           Загрузить ещё
         </button>
       )}
