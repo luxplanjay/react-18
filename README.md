@@ -1,6 +1,4 @@
 # react-18
 
-1. Приватные и огран. маршруты
-2. Редиректы
-3. Токен !== залогиненый пользователь
-4. Разделение кода
+- [Хуки react-redux](https://react-redux.js.org/api/hooks)
+- [Хуки react-router](https://reactrouter.com/web/api/Hooks)

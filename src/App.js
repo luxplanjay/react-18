@@ -1,6 +1,6 @@
-import React, { Component, Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AppBar from './components/AppBar';
 import Container from './components/Container';
 import { authOperations } from './redux/auth';
@@ -12,45 +12,40 @@ const RegisterView = lazy(() => import('./views/RegisterView'));
 const LoginView = lazy(() => import('./views/LoginView'));
 const TodosView = lazy(() => import('./views/TodosView'));
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurrentUser();
-  }
+export default function App() {
+    const dispatch = useDispatch();
 
-  render() {
+    useEffect(() => {
+        dispatch(authOperations.getCurrentUser());
+    }, [dispatch]);
+
     return (
-      <Container>
-        <AppBar />
+        <Container>
+            <AppBar />
 
-        <Suspense fallback={<p>Загружаем...</p>}>
-          <Switch>
-            <PublicRoute exact path="/" component={HomeView} />
-            <PublicRoute
-              path="/register"
-              restricted
-              redirectTo="/todos"
-              component={RegisterView}
-            />
-            <PublicRoute
-              path="/login"
-              restricted
-              redirectTo="/todos"
-              component={LoginView}
-            />
-            <PrivateRoute
-              path="/todos"
-              redirectTo="/login"
-              component={TodosView}
-            />
-          </Switch>
-        </Suspense>
-      </Container>
+            <Suspense fallback={<p>Загружаем...</p>}>
+                <Switch>
+                    <PublicRoute exact path="/">
+                        <HomeView />
+                    </PublicRoute>
+
+                    <PublicRoute
+                        path="/register"
+                        restricted
+                        redirectTo="/todos"
+                    >
+                        <RegisterView />
+                    </PublicRoute>
+
+                    <PublicRoute path="/login" restricted redirectTo="/todos">
+                        <LoginView />
+                    </PublicRoute>
+
+                    <PrivateRoute path="/todos" redirectTo="/login">
+                        <TodosView />
+                    </PrivateRoute>
+                </Switch>
+            </Suspense>
+        </Container>
     );
-  }
 }
-
-const mapDispatchToProps = {
-  onGetCurrentUser: authOperations.getCurrentUser,
-};
-
-export default connect(null, mapDispatchToProps)(App);

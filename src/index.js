@@ -9,14 +9,14 @@ import 'modern-normalize/modern-normalize.css';
 import './styles/base.scss';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store.store}>
-      <PersistGate loading={null} persistor={store.persistor}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root'),
+    <React.StrictMode>
+        <Provider store={store.store}>
+            <PersistGate loading={null} persistor={store.persistor}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </PersistGate>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root'),
 );

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Container from '../components/Container';
 import TodoList from '../components/TodoList';
 import TodoEditor from '../components/TodoEditor';
@@ -11,59 +11,43 @@ import { ReactComponent as AddIcon } from '../icons/add.svg';
 import { todosOperations, todosSelectors } from '../redux/todos';
 
 const barStyles = {
-  display: 'flex',
-  alignItems: 'flex-end',
-  marginBottom: 20,
+    display: 'flex',
+    alignItems: 'flex-end',
+    marginBottom: 20,
 };
 
-class TodosView extends Component {
-  state = {
-    showModal: false,
-  };
+export default function TodosView() {
+    const dispatch = useDispatch();
+    const isLoadingTodos = useSelector(todosSelectors.getLoading);
+    const [showModal, setShowModal] = useState(false);
 
-  componentDidMount() {
-    this.props.fetchTodos();
-  }
+    useEffect(() => {
+        dispatch(todosOperations.fetchTodos());
+    }, [dispatch]);
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
-
-  render() {
-    const { showModal } = this.state;
+    const toggleModal = useCallback(() => {
+        setShowModal(prevShowModal => !prevShowModal);
+    }, []);
 
     return (
-      <Container>
-        <div style={barStyles}>
-          <Filter />
-          <Stats />
-          <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
-            <AddIcon width="40" height="40" fill="#fff" />
-          </IconButton>
+        <Container>
+            <div style={barStyles}>
+                <Filter />
+                <Stats />
+                <IconButton onClick={toggleModal} aria-label="Добавить todo">
+                    <AddIcon width="40" height="40" fill="#fff" />
+                </IconButton>
 
-          {this.props.isLoadingTodos && <h1>Загружаем...</h1>}
-        </div>
+                {isLoadingTodos && <h1>Загружаем...</h1>}
+            </div>
 
-        <TodoList />
+            <TodoList />
 
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <TodoEditor onSave={this.toggleModal} />
-          </Modal>
-        )}
-      </Container>
+            {showModal && (
+                <Modal onClose={toggleModal}>
+                    <TodoEditor onSave={toggleModal} />
+                </Modal>
+            )}
+        </Container>
     );
-  }
 }
-
-const mapStateToProps = state => ({
-  isLoadingTodos: todosSelectors.getLoading(state),
-});
-
-const mapDispatchToProps = {
-  fetchTodos: todosOperations.fetchTodos,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodosView);
